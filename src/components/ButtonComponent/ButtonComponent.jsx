@@ -7,13 +7,14 @@ import {
   changeButtonIsWork,
   addToQueue,
   deleteFromQueue,
+  clearLog,
 } from '../../redux/slices/logSlices';
 
-const ButtonComponent = ({ time, id }) => {
+const ButtonComponent = ({ time, id, clear }) => {
   const [savedTime, setSavedTime] = useState(null);
   const dispatch = useDispatch();
   const workMark = useSelector((state) => state.log.buttonIsWork);
-  const queue = useSelector((state) => state.log.queue[0]);
+  const queue = useSelector((state) => state?.log?.queue);
 
   const timerFunction = useCallback(
     (clickTime = new Date(), mark = false) => {
@@ -37,7 +38,7 @@ const ButtonComponent = ({ time, id }) => {
     [dispatch, id, time],
   );
 
-  const handleClick = () => {
+  const handleClickTimer = () => {
     setSavedTime(new Date());
     if (!workMark) {
       timerFunction(undefined, true);
@@ -46,8 +47,12 @@ const ButtonComponent = ({ time, id }) => {
     }
   };
 
+  const handleClickClear = () => {
+    dispatch(clearLog());
+  };
+
   useEffect(() => {
-    if (queue === id && !workMark) {
+    if (queue[0] === id && !workMark) {
       timerFunction(savedTime);
     }
   }, [id, queue, savedTime, timerFunction, workMark]);
@@ -58,11 +63,25 @@ const ButtonComponent = ({ time, id }) => {
         margin: '5px',
       }}
     >
-      <Button
-        size="large"
-        onClick={handleClick}
-        sx={{ borderRadius: '4px!important' }}
-      >{`${time} sec`}</Button>
+      {clear ? (
+        <Button
+          size="large"
+          sx={{
+            borderRadius: '4px!important',
+            color: '#000',
+            fontWeight: 'bold',
+          }}
+          onClick={handleClickClear}
+        >
+          Clear
+        </Button>
+      ) : (
+        <Button
+          size="large"
+          onClick={handleClickTimer}
+          sx={{ borderRadius: '4px!important' }}
+        >{`${time} sec`}</Button>
+      )}
     </Box>
   );
 };
@@ -70,6 +89,11 @@ const ButtonComponent = ({ time, id }) => {
 ButtonComponent.propTypes = {
   time: PropTypes.number.isRequired,
   id: PropTypes.string.isRequired,
+  clear: PropTypes.bool,
+};
+
+ButtonComponent.defaultProps = {
+  clear: false,
 };
 
 export default ButtonComponent;

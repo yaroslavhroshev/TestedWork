@@ -16,6 +16,9 @@ const logSlice = createSlice({
         `Button №${number}: ${timeForEnd} - ${timeForStart} (${passed} sec)`,
       );
     },
+    clearLog(state) {
+      state.log = [];
+    },
     changeButtonIsWork(state, action) {
       state.buttonIsWork = action.payload;
     },
@@ -33,6 +36,7 @@ export const {
   changeButtonIsWork,
   addToQueue,
   deleteFromQueue,
+  clearLog,
 } = logSlice.actions;
 
 export default logSlice.reducer;

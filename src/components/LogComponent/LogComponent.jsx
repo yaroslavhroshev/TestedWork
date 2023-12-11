@@ -5,10 +5,9 @@ const LogComponent = () => {
   const log = useSelector((state) => state.log.log);
   return (
     <Box>
-      {log.length &&
-        log.map((logValue) => (
-          <Typography key={logValue}>{logValue}</Typography>
-        ))}
+      {log?.map((logValue) => (
+        <Typography key={logValue}>{logValue}</Typography>
+      ))}
     </Box>
   );
 };
