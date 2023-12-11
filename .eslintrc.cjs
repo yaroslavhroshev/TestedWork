@@ -75,5 +75,14 @@ module.exports = {
       }
     ],
     'arrow-body-style': 'off',
+    "no-param-reassign": [
+      "error",
+      {
+        // "props": true,
+        "ignorePropertyModificationsFor": [
+          "state"
+        ]
+      }
+    ],
   },
 };
