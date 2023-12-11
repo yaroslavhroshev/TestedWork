@@ -1,23 +1,41 @@
-import { Box, Typography } from '@mui/material';
-import './App.css';
+import { Box, Typography, Container } from '@mui/material';
 import ButtonGroupComponent from './components/ButtonGroupComponent/ButtonGroupComponent';
 import LogComponent from './components/LogComponent/LogComponent';
 
 const App = () => {
   return (
-    <Box>
-      <Typography
-        variant="h3"
+    <Container
+      sx={{
+        maxWidth: '1280px',
+        margin: '0 auto',
+        padding: '2rem',
+        display: 'flex',
+        flexDirection: 'column',
+        alignItems: 'center',
+      }}
+    >
+      <Box
         sx={{
-          fontWeight: 'bold',
-          mb: '15px',
+          textAlign: 'center',
         }}
       >
-        Testing Work
-      </Typography>
-      <ButtonGroupComponent />
-      <LogComponent />
-    </Box>
+        <Typography
+          variant="h3"
+          sx={{
+            fontWeight: 'bold',
+            mb: '15px',
+            fontSize: {
+              mobile: '2rem',
+              desktop: '3rem',
+            },
+          }}
+        >
+          Testing Work
+        </Typography>
+        <ButtonGroupComponent />
+        <LogComponent />
+      </Box>
+    </Container>
   );
 };
 
